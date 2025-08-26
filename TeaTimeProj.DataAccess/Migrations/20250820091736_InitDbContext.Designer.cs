@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TeaTimeProj.Data;
+using TeaTimeProj.DataAccess.Data;
 
 #nullable disable
 
-namespace TeaTimeProj.Migrations
+namespace TeaTimeProj.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20250820091736_InitDbContext")]

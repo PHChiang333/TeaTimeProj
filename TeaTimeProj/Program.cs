@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using TeaTimeProj.DataAccess.Data;
 
 namespace TeaTimeProj
 {
@@ -11,7 +12,7 @@ namespace TeaTimeProj
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddDbContext<Data.ApplicationDbContext>(options =>
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             var app = builder.Build();

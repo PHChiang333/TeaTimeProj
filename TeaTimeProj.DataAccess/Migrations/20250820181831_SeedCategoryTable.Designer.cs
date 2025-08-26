@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TeaTimeProj.Data;
+using TeaTimeProj.DataAccess.Data;
 
 #nullable disable
 
-namespace TeaTimeProj.Migrations
+namespace TeaTimeProj.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250820181403_AddCategoryTableToDb")]
-    partial class AddCategoryTableToDb
+    [Migration("20250820181831_SeedCategoryTable")]
+    partial class SeedCategoryTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,26 @@ namespace TeaTimeProj.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DisplayOrrder = 1,
+                            Name = "茶飲"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DisplayOrrder = 2,
+                            Name = "水果茶"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DisplayOrrder = 3,
+                            Name = "咖啡"
+                        });
                 });
 #pragma warning restore 612, 618
         }
