@@ -32,12 +32,15 @@ namespace TeaTimeProj.Controllers
             if (obj.Name == obj.DisplayOrder.ToString())
             {
                 ModelState.AddModelError("name", "類別名稱不能與顯示順序相同");
+                TempData["error"] = "新增失敗!";
             }
 
             if (ModelState.IsValid)
             {
                 _db.Categories.Add(obj);
                 _db.SaveChanges();
+
+                TempData["success"] = "類別新增成功!";
 
                 return RedirectToAction("Index");
             }
