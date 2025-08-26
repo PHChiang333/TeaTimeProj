@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Diagnostics.HealthChecks;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace TeaTimeProj.Models
@@ -10,8 +11,13 @@ namespace TeaTimeProj.Models
         public int Id { get; set; }
 
         [Required]
-        public string Name { get; set; } 
-        public int DisplayOrrder { get; set; }
+        [DisplayName("類別名稱")]
+        [MaxLength(30)]
+        public string Name { get; set; }
+
+        [DisplayName("顯示順序")]
+        [Range(1,100, ErrorMessage ="輸入範圍應該要在1-100")]
+        public int DisplayOrder { get; set; }
 
 
 
