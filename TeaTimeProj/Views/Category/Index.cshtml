@@ -9,19 +9,30 @@
 }
 
 <h1>類別清單</h1>
+
+<div class="col-6 text-end">
+    <a asp-controller="Category" asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> 新增類別
+    </a>
+</div>
+
+
+
+
+
 <table class="table table-bordered table-striped">
-     <thead>
-          <tr>
-                <th>類別名稱</th>
-                <th>顯示順序</th>
-          </tr>
-     </thead>
-     <tbody>
-          @foreach (var category in Model.OrderBy(u => u.DisplayOrrder))
-          {
-                <tr>
-                 <td>@category.Name</td>
-                 <td>@category.DisplayOrrder</td>
-                </tr>
-          }
+    <thead>
+        <tr>
+            <th>類別名稱</th>
+            <th>顯示順序</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model.OrderBy(u => u.DisplayOrder))
+        {
+            <tr>
+                <td>@category.Name</td>
+                <td>@category.DisplayOrder</td>
+            </tr>
+        }
     </tbody>

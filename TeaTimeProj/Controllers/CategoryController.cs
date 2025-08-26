@@ -20,5 +20,29 @@ namespace TeaTimeProj.Controllers
 
             return View(objCategoryList);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Category obj)
+        {
+            if (obj.Name == obj.DisplayOrder.ToString())
+            {
+                ModelState.AddModelError("name", "類別名稱不能與顯示順序相同");
+            }
+
+            if (ModelState.IsValid)
+            {
+                _db.Categories.Add(obj);
+                _db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
     }
 }
