@@ -2,15 +2,11 @@
 
 
 
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+
 
 <h1>類別清單</h1>
 
-<div class="col-6 text-end">
+<div class="text-end">
     <a asp-controller="Category" asp-action="Create" class="btn btn-primary">
         <i class="bi bi-plus-circle"></i> 新增類別
     </a>
@@ -25,14 +21,25 @@
         <tr>
             <th>類別名稱</th>
             <th>顯示順序</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var category in Model.OrderBy(u => u.DisplayOrder))
+        @foreach (var obj in Model.OrderBy(u => u.DisplayOrder))
         {
             <tr>
-                <td>@category.Name</td>
-                <td>@category.DisplayOrder</td>
+                <td>@obj.Name</td>
+                <td>@obj.DisplayOrder</td>
+                <td>
+                    <div class="w-75 btn-group" role="group">
+                        <a asp-controller="Category" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2" >
+                            <i class=" bi bi-pencil-square"></i> 編輯
+                        </a>
+                        <a asp-controller="Category" asp-action="Delete" class="btn btn-danger mx-2">
+                            <i class="bi bi-trash-fill"></i> 刪除
+                        </a>
+                    </div>
+                </td>
             </tr>
         }
     </tbody>
