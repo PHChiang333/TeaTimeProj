@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TeaTimeProj.DataAccess.Data;
+using TeaTimeProj.DataAccess.Repository.IRepository;
 using TeaTimeProj.Models;
 
 namespace TeaTimeProj.Controllers
@@ -7,16 +8,17 @@ namespace TeaTimeProj.Controllers
     public class CategoryController : Controller
     {
 
-        private readonly ApplicationDbContext _db;
-        public CategoryController(ApplicationDbContext db)
+        private readonly ICategoryRepository _categoryRepo;
+
+        public CategoryController(ICategoryRepository db)
         {
-            _db = db;
+            _categoryRepo = db;
         }
 
 
         public IActionResult Index()
         {
-            List<Category> objCategoryList = _db.Categories.ToList();
+            List<Category> objCategoryList = _categoryRepo.GetAll().ToList();
 
             return View(objCategoryList);
         }
@@ -37,8 +39,8 @@ namespace TeaTimeProj.Controllers
 
             if (ModelState.IsValid)
             {
-                _db.Categories.Add(obj);
-                _db.SaveChanges();
+                _categoryRepo.Add(obj);
+                _categoryRepo.Save();
 
                 TempData["success"] = "類別新增成功!";
 
@@ -58,7 +60,7 @@ namespace TeaTimeProj.Controllers
                 return NotFound();
             }
 
-            Category? categoryFromDb = _db.Categories.Find(id);
+            Category? categoryFromDb = _categoryRepo.Get(u => u.Id == id);
             if (categoryFromDb == null)
             {
                 return NotFound();
@@ -73,8 +75,8 @@ namespace TeaTimeProj.Controllers
 
             if (ModelState.IsValid)
             {
-                _db.Categories.Update(obj);
-                _db.SaveChanges();
+                _categoryRepo.Update(obj);
+                _categoryRepo.Save();
                 return RedirectToAction("Index");
             }
             return View();
@@ -87,7 +89,7 @@ namespace TeaTimeProj.Controllers
             {
                 return NotFound();
             }
-            Category? categoryFromDb = _db.Categories.Find(id);
+            Category? categoryFromDb = _categoryRepo.Get(u => u.Id == id);
             if (categoryFromDb == null)
             {
                 return NotFound();
@@ -98,13 +100,13 @@ namespace TeaTimeProj.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
-            Category? obj = _db.Categories.Find(id);
+            Category? obj = _categoryRepo.Get(u => u.Id == id);
             if (obj == null)
             {
                 return NotFound();
             }
-            _db.Categories.Remove(obj);
-            _db.SaveChanges();
+            _categoryRepo.Remove(obj);
+            _categoryRepo.Save();
             return RedirectToAction("Index");
         }
 

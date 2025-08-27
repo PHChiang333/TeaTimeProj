@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TeaTimeProj.DataAccess.Data;
+using TeaTimeProj.DataAccess.Repository;
+using TeaTimeProj.DataAccess.Repository.IRepository;
 
 namespace TeaTimeProj
 {
@@ -14,6 +16,13 @@ namespace TeaTimeProj
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            //Adding Repository Pattern (category)
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+
+
+
 
             var app = builder.Build();
 
