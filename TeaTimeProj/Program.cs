@@ -18,7 +18,8 @@ namespace TeaTimeProj
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             //Adding Repository Pattern (category)
-            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            //builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
 
