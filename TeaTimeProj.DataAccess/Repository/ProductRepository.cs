@@ -9,7 +9,7 @@ using TeaTimeProj.Models;
 
 namespace TeaTimeProj.DataAccess.Repository
 {
-    public class ProductRepository : Repository<Category>, IProductRepository
+    public class ProductRepository : Repository<Product>, IProductRepository
     {
         private ApplicationDbContext _db;
         public ProductRepository(ApplicationDbContext db) : base(db)
@@ -20,9 +20,9 @@ namespace TeaTimeProj.DataAccess.Repository
         //{
         //    _db.SaveChanges();
         //}
-        public void Update(Category obj)
+        public void Update(Product obj)
         {
-            _db.Categories.Update(obj);
+            _db.Products.Update(obj);
         }
     }
 }
