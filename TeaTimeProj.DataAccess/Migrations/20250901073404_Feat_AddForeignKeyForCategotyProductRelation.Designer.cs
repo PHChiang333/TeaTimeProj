@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeaTimeProj.DataAccess.Data;
 
@@ -10,9 +11,11 @@ using TeaTimeProj.DataAccess.Data;
 namespace TeaTimeProj.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250901073404_Feat_AddForeignKeyForCategotyProductRelation")]
+    partial class Feat_AddForeignKeyForCategotyProductRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,10 +80,6 @@ namespace TeaTimeProj.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -104,7 +103,6 @@ namespace TeaTimeProj.DataAccess.Migrations
                             Id = 1,
                             CategoryId = 1,
                             Description = "天然果飲，迷人多變",
-                            ImageUrl = "",
                             Name = "台灣水果茶",
                             Price = 60.0,
                             Size = "大杯"
@@ -114,7 +112,6 @@ namespace TeaTimeProj.DataAccess.Migrations
                             Id = 2,
                             CategoryId = 2,
                             Description = "品鐵關心，享受人生的味道",
-                            ImageUrl = "",
                             Name = "鐵觀音",
                             Price = 35.0,
                             Size = "中杯"
@@ -124,7 +121,6 @@ namespace TeaTimeProj.DataAccess.Migrations
                             Id = 3,
                             CategoryId = 3,
                             Description = "用咖啡體悟悠閒時光",
-                            ImageUrl = "",
                             Name = "美式咖啡",
                             Price = 50.0,
                             Size = "中杯"

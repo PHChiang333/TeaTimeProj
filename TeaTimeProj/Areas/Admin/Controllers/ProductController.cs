@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using TeaTimeProj.DataAccess.Data;
 using TeaTimeProj.DataAccess.Repository.IRepository;
 using TeaTimeProj.Models;
+using TeaTimeProj.Models.ViewModels;
 
 namespace TeaTimeProj.Areas.Admin.Controllers
 {
@@ -26,23 +28,42 @@ namespace TeaTimeProj.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            ProductVM productVM = new()
+            {
+                CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                }),
+                Product = new Product()
+            };
+
+            return View(productVM);
         }
 
         [HttpPost]
-        public IActionResult Create(Product obj)
+        public IActionResult Create(ProductVM productVM)
         {
 
             if (ModelState.IsValid)
             {
-                _unitOfWork.Product.Add(obj);
+                _unitOfWork.Product.Add(productVM.Product);
                 _unitOfWork.Save();
 
                 TempData["success"] = "產品新增成功!";
 
                 return RedirectToAction("Index");
             }
-            return View();
+            else
+            {
+                productVM.CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                });
+
+                return View();
+            }
         }
 
 
@@ -106,7 +127,7 @@ namespace TeaTimeProj.Areas.Admin.Controllers
             }
             _unitOfWork.Product.Remove(obj);
             _unitOfWork.Save();
-            
+
             TempData["success"] = "產品刪除成功!";
 
             return RedirectToAction("Index");
