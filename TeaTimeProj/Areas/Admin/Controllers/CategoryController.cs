@@ -3,8 +3,9 @@ using TeaTimeProj.DataAccess.Data;
 using TeaTimeProj.DataAccess.Repository.IRepository;
 using TeaTimeProj.Models;
 
-namespace TeaTimeProj.Controllers
+namespace TeaTimeProj.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
 
@@ -77,6 +78,9 @@ namespace TeaTimeProj.Controllers
             {
                 _unitOfWork.Category.Update(obj);
                 _unitOfWork.Save();
+
+                TempData["success"] = "類別編輯成功!";
+
                 return RedirectToAction("Index");
             }
             return View();
@@ -107,6 +111,9 @@ namespace TeaTimeProj.Controllers
             }
             _unitOfWork.Category.Remove(obj);
             _unitOfWork.Save();
+            
+            TempData["success"] = "類別刪除成功!";
+
             return RedirectToAction("Index");
         }
 
