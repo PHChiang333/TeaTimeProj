@@ -22,7 +22,24 @@ namespace TeaTimeProj.DataAccess.Repository
         //}
         public void Update(Product obj)
         {
-            _db.Products.Update(obj);
+
+            var objFromDb = _db.Products.FirstOrDefault(u => u.Id == obj.Id);
+            if (objFromDb != null)
+            {
+                objFromDb.Name = obj.Name;
+                objFromDb.Size = obj.Size;
+                objFromDb.Price = obj.Price;
+                objFromDb.Description = obj.Description;
+                objFromDb.CategoryId = obj.CategoryId;
+                //只有當有圖片時才更新
+                if (obj.ImageUrl != null)
+                {
+                    objFromDb.ImageUrl = obj.ImageUrl;
+                }
+            }
+
+            //_db.Products.Update(obj);
+
         }
     }
 }
