@@ -1,4 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using TeaTimeProj.DataAccess.Data;
+using TeaTimeProj.DataAccess.Repository;
+using TeaTimeProj.DataAccess.Repository.IRepository;
 
 namespace TeaTimeProj
 {
@@ -11,8 +14,16 @@ namespace TeaTimeProj
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddDbContext<Data.ApplicationDbContext>(options =>
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            //Adding Repository Pattern (category)
+            //builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
+
+
 
             var app = builder.Build();
 
@@ -33,7 +44,7 @@ namespace TeaTimeProj
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }
