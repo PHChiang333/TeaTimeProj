@@ -2,6 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using TeaTimeProj.DataAccess.Data;
 using TeaTimeProj.DataAccess.Repository;
 using TeaTimeProj.DataAccess.Repository.IRepository;
+using Microsoft.AspNetCore.Identity;
+using TeaTimeProj.Utility;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace TeaTimeProj
 {
@@ -17,9 +20,22 @@ namespace TeaTimeProj
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+            builder.Services.AddRazorPages();
+
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+            //Cookie settings for Identity
+            builder.Services.ConfigureApplicationCookie(option =>
+            {
+                option.LoginPath = $"/Identity/Account/Login";
+                option.LogoutPath = $"/Identity/Account/Logout";
+                option.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
+
             //Adding Repository Pattern (category)
             //builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 
 
@@ -40,7 +56,10 @@ namespace TeaTimeProj
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+
+            app.MapRazorPages();
 
             app.MapControllerRoute(
                 name: "default",
