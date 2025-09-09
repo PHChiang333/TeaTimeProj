@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TeaTimeProj.DataAccess.Data;
 using TeaTimeProj.DataAccess.Repository.IRepository;
 using TeaTimeProj.Models;
+using TeaTimeProj.Utility;
 
 namespace TeaTimeProj.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles =SD.Role_Admin)]
     public class CategoryController : Controller
     {
 

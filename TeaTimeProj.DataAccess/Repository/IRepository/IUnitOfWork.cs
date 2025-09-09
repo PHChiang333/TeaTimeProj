@@ -10,6 +10,7 @@ namespace TeaTimeProj.DataAccess.Repository.IRepository
     {
         ICategoryRepository Category { get; }
         IProductRepository Product { get; }
+        IStoreRepository Store { get; }
         void Save();
     }
 }
