@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeaTimeProj.DataAccess.Data;
 
@@ -11,9 +12,11 @@ using TeaTimeProj.DataAccess.Data;
 namespace TeaTimeProj.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250909085758_AddStoreRecords")]
+    partial class AddStoreRecords
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -409,11 +412,6 @@ namespace TeaTimeProj.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StoreId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("StoreId");
-
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
@@ -477,15 +475,6 @@ namespace TeaTimeProj.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("TeaTimeProj.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("TeaTimeProj.Models.Store", "store")
-                        .WithMany()
-                        .HasForeignKey("StoreId");
-
-                    b.Navigation("store");
                 });
 #pragma warning restore 612, 618
         }

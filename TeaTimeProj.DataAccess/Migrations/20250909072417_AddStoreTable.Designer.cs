@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeaTimeProj.DataAccess.Data;
 
@@ -11,9 +12,11 @@ using TeaTimeProj.DataAccess.Data;
 namespace TeaTimeProj.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250909072417_AddStoreTable")]
+    partial class AddStoreTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -366,35 +369,6 @@ namespace TeaTimeProj.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Stores");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "台中市北區三民路三段129號",
-                            City = "台中市",
-                            Description = "台中一中學生最愛",
-                            Name = "台中一中店",
-                            PhoneNumber = "04-12345678"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Address = "台北市中正區羅斯福路四段85號",
-                            City = "台北市",
-                            Description = "台大、師大學生最愛",
-                            Name = "台北公館店",
-                            PhoneNumber = "02-12345678"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Address = "高雄市左營區博愛二路777號",
-                            City = "高雄市",
-                            Description = "高雄巨蛋附近最愛",
-                            Name = "高雄巨蛋店",
-                            PhoneNumber = "07-12345678"
-                        });
                 });
 
             modelBuilder.Entity("TeaTimeProj.Models.ApplicationUser", b =>
@@ -408,11 +382,6 @@ namespace TeaTimeProj.DataAccess.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("StoreId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("StoreId");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
@@ -477,15 +446,6 @@ namespace TeaTimeProj.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("TeaTimeProj.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("TeaTimeProj.Models.Store", "store")
-                        .WithMany()
-                        .HasForeignKey("StoreId");
-
-                    b.Navigation("store");
                 });
 #pragma warning restore 612, 618
         }
