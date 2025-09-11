@@ -75,5 +75,10 @@ namespace TeaTimeProj.Areas.Customer.Controllers
         }
 
 
+
+        public IActionResult Summary()
+        {
+            return View();
+        }
     }
 }
