@@ -13,6 +13,9 @@ namespace TeaTimeProj.DataAccess.Repository.IRepository
         IStoreRepository Store { get; }
         IShoppingCartRepository ShoppingCart { get; }
         IApplicationUserRepository ApplicationUser { get; }
+
+        IOrderDetailRepository OrderDetail { get; }
+        IOrderHeaderRepository OrderHeader { get; }
         void Save();
     }
 }
