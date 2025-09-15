@@ -14,7 +14,7 @@ namespace TeaTimeProj.Models
         public int Id { get; set; }
         [Required]
         public int  OrderHeaderId { get; set; }
-        [ForeignKey("OrderHeadId")]
+        [ForeignKey("OrderHeaderId")]
         [ValidateNever]
         public OrderHeader OrderHeader { get; set; }
         [Required]
