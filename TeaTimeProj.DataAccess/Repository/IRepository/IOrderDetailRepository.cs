@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TeaTimeProj.Models;
 
 namespace TeaTimeProj.DataAccess.Repository.IRepository
 {
-    public class IOrderDetailRepository : IRepository<OrderDetail>
+    public interface IOrderDetailRepository : IRepository<OrderDetail>
     {
         void Update(OrderDetail obj);
     }
