@@ -15,4 +15,3 @@ TeaTimeProject
   - 持久層 (Persistence Layer) -> Model: Domain Entities and ViewModels
   - 共用層（Common Layer）-> Utility
 
-目前進度: Product
