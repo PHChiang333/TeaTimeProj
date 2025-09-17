@@ -1,25 +1,46 @@
 ﻿var dataTable;
 $(document).ready(function () {
-    loadDataTable();
+
+    var url = window.location.search;
+    console.log(url);
+    if (url.includes("Processing")) {
+        loadDataTable("Processing");
+    }
+    else if (url.includes("Pending")) {
+        loadDataTable("Pending");
+    }
+    else if (url.includes("Ready")) {
+        loadDataTable("Ready");
+    }
+    else if (url.includes("Completed")) {
+        loadDataTable("Completed");
+    }
+    else if (url.includes("Canceled")) {
+        loadDataTable("Canceled");
+    }
+    else {
+        loadDataTable("All");
+    }
+
 });
 
-function loadDataTable() {
+function loadDataTable(status) {
     dataTable = $('#tblData')
         .DataTable(
             {
-                "ajax": { "url": "/admin/product/getall" },
+                "ajax": { "url": '/admin/order/getall?status='+status },
                 "columns": [
-                    { data: 'name', "width": "25% " },
-                    { data: 'category.name', "width": "15%" },
-                    { data: 'size', "width": "10%" },
-                    { data: 'price', "width": "15%" },
-                    { data: 'description', "width": "10%" },
+                    { data: 'id', "width": "10% " },
+                    { data: 'name', "width": "15%" },
+                    { data: 'phoneNumber', "width": "20%" },
+                    { data: 'applicationUser.email', "width": "20%" },
+                    { data: 'orderStatus', "width": "10%" },
+                    { data: 'orderTotal', "width": "10%" },
                     {
                         data: 'id',
                         "render": function (data) {
                             return `<div class="w-75 btn-group" role="group">
-                        <a href="/admin/product/upsert?id=${data}" class="btn btn-primary mx-2"><i class="bi bi-pencil-square"></i>Edit</a>
-                        <a onClick=Delete('/admin/product/delete/${data}') class="btn btn-danger mx-2"><i class="bi bi-trush-fill"></i>Delete</a>
+                        <a href="/admin/order/details?orderId=${data}" class="btn btn-primary mx-2"><i class="bi bi-pencil-square"></i></a>
                         </div>`
                         },
                         "width": "15%"

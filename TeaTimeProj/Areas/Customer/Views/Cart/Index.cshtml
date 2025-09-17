@@ -69,7 +69,7 @@
                             <li class="list-group-item d-flex justify-content-between bg-light">
                                 <span class="text-info"> 總金額 (NT)</span>
                                 @* 本次修改部分 *@
-                                <strong class="text-info">@Model.OrderTotal.ToString("c")</strong>
+                                <strong class="text-info">@Model.OrderHeader.OrderTotal.ToString("c")</strong>
                             </li>
                         </ul>
                     </div>
@@ -80,7 +80,7 @@
             <div class="card-footer">
                 <div class="card-footer row justify-content-end">
                     <div class="col-sm-12 col-lg-4 col-md-6 pe-0">
-                        <a class="btn btn-success form-control">總計</a>
+                        <a asp-action="Summary" class="btn btn-success form-control">總計</a>
                     </div>
                 </div>
             </div>

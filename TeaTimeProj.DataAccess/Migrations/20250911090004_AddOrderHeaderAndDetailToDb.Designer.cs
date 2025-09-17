@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeaTimeProj.DataAccess.Data;
 
@@ -11,9 +12,11 @@ using TeaTimeProj.DataAccess.Data;
 namespace TeaTimeProj.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250911090004_AddOrderHeaderAndDetailToDb")]
+    partial class AddOrderHeaderAndDetailToDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -285,6 +288,9 @@ namespace TeaTimeProj.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("OrderHeadId")
+                        .HasColumnType("int");
+
                     b.Property<int>("OrderHeaderId")
                         .HasColumnType("int");
 
@@ -300,7 +306,7 @@ namespace TeaTimeProj.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderHeaderId");
+                    b.HasIndex("OrderHeadId");
 
                     b.HasIndex("ProductId");
 
@@ -596,7 +602,7 @@ namespace TeaTimeProj.DataAccess.Migrations
                 {
                     b.HasOne("TeaTimeProj.Models.OrderHeader", "OrderHeader")
                         .WithMany()
-                        .HasForeignKey("OrderHeaderId")
+                        .HasForeignKey("OrderHeadId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
