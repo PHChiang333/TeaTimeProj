@@ -5,6 +5,8 @@ using TeaTimeProj.DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Identity;
 using TeaTimeProj.Utility;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using TeaTimeProj.DataAccess.DbInitializer;
+using TeaTimeProj.DataAccess.Migrations;
 
 namespace TeaTimeProj
 {
@@ -32,6 +34,9 @@ namespace TeaTimeProj
                 option.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
 
+            //Adding DbInitializer
+            builder.Services.AddScoped<IDbInitializer, DbInitializer>();
+
             //Adding Repository Pattern (category)
             //builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -55,6 +60,8 @@ namespace TeaTimeProj
             app.UseStaticFiles();
 
             app.UseRouting();
+            // Seed the database
+            SeedDatabase();
 
             app.UseAuthentication();
             app.UseAuthorization();
@@ -66,6 +73,17 @@ namespace TeaTimeProj
                 pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
+
+
+            // Seed the database when the application starts
+            void SeedDatabase()
+            {
+                using (var scope = app.Services.CreateScope())
+                {
+                    var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+                    dbInitializer.Initialize();
+                }
+            }
         }
     }
 }

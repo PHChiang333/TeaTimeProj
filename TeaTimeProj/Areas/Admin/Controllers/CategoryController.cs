@@ -8,7 +8,7 @@ using TeaTimeProj.Utility;
 namespace TeaTimeProj.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles =SD.Role_Admin)]
+    [Authorize(Roles =SD.Role_Admin+","+SD.Role_Manager)]
     public class CategoryController : Controller
     {
 
