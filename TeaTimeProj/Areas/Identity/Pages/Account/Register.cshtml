@@ -4,7 +4,7 @@
     ViewData["Title"] = "Register";
 }
 
-@(User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Manager))
+@if(User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Manager))
 {
     <h1 class="pt-4">註冊管理者帳號</h1>
 }
